@@ -4,18 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebTraffic.Models;
+using WebTraffic.WebCollect;
+
 namespace WebTraffic.Controllers
 {
     public class HomeController : Controller
     {
         TrafficEntities modelDB = new TrafficEntities();
+        Web_Spider web = new Web_Spider();
         public ActionResult Index()
         {
             Task taskItem = new Task();
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
-            var pageItem = taskItem.PageList(page, 10);
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            List<Task> taskList = new List<Task>();
+            var pageItem = taskItem.PageList(page, 10, "/home/index", out taskList);
             ViewBag.PageData = pageItem;
+            ViewBag.ListItem = taskList;
             // modelDB.Task
             return View();
         }
@@ -25,9 +31,17 @@ namespace WebTraffic.Controllers
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             Task task = new Task();
+           
             task.Title = "";
             task.Url = string.IsNullOrWhiteSpace(Request.Params["ArticleUrl"]) ? "" : Request.Params["ArticleUrl"];
-            task.UserID = 0;
+            if(task.Url.Length>2)
+            {
+                web.Url = task.Url;
+              string webHtml=  web.getHtmlContentByUrl();
+                task.Title= Html_Regex.RegexByStr(Html_Regex.HtmlTitle, webHtml);
+                task.Title = Html_Regex.RegexReolaceHtml( task.Title, Html_Regex.HtmlAllContent);
+            }
+           task.UserID = 0;
             task.UserWecat = string.IsNullOrWhiteSpace(Request.Params["UserWecat"]) ? 0 : int.Parse(Request.Params["UserWecat"].ToString());
             task.TransmitWecat = string.IsNullOrWhiteSpace(Request.Params["TransmitWecat"]) ? 0 : int.Parse(Request.Params["TransmitWecat"]);
             task.FriendWecat = string.IsNullOrWhiteSpace(Request.Params["FriendWecat"]) ? 0 : int.Parse(Request.Params["FriendWecat"]);

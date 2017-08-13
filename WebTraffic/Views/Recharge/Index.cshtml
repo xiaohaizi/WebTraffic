@@ -1,0 +1,73 @@
+﻿@using WebTraffic.Models;
+@{
+    ViewBag.Title = "充值记录";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PageModel pageItem = (PageModel)ViewBag.PageData;
+    List<Recharge> listItem = (List<Recharge>)ViewBag.ListItem;
+}
+
+<div class="tpl-content-wrapper">
+    <div class="tpl-content-page-title">
+        阅读量
+    </div>
+    <ol class="am-breadcrumb">
+        <li><a href="#" class="am-icon-home">首页</a></li>
+
+        <li class="am-active">阅读量</li>
+    </ol>
+
+    <div class="tpl-portlet-components">
+
+        <div class="row">
+
+            <div class="am-u-sm-12">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 任务列表
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-6">
+                        <div class="am-btn-toolbar">
+                            
+                        </div>
+                    </div>
+
+                </div>
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                        <tr>
+                            <th class="table-check"><input class="tpl-table-fz-check" type="checkbox"></th>
+                           
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (pageItem != null)
+                        {
+                            foreach (var item in listItem)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                   
+
+                                </tr>
+                            }
+                        }
+
+
+
+
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    @Html.Partial("PageView")
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -167,7 +167,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConsumptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RechargeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +198,7 @@
     <Compile Include="Models\Recharge.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RechargeExt.cs" />
     <Compile Include="Models\Task.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
@@ -207,6 +210,8 @@
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebCollect\Html_Regex.cs" />
+    <Compile Include="WebCollect\Web_Spider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\admin.css" />
@@ -305,6 +310,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\PageView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Recharge\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Consumption\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

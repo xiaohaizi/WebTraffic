@@ -3,7 +3,8 @@
 @{
     ViewBag.Title = "阅读量";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    PageModel<Task> pageItem = (PageModel<Task>)ViewBag.PageData;
+    PageModel pageItem = (PageModel)ViewBag.PageData;
+    List<Task> listItem = (List<Task>)ViewBag.ListItem;
 }
 
 <div class="tpl-content-wrapper">
@@ -168,21 +169,21 @@
                     <tbody>
                         @if (pageItem != null)
                         {
-                            foreach (var item in pageItem.listData)
+                            foreach (var item in listItem)
                             {
                                 <tr>
                                     <td>@item.ID</td>
                                     <td>@item.CreateTime</td>
-                                    <td><a href="#">Business</a></td>
-                                    <td></td>
-                                    <td>测试1号</td>
-                                    <td>2014</td>
-                                    <td><input type="checkbox"></td>
-                                    <td>1</td>
-                                    <td><a href="#">Business</a></td>
-                                    <td>default</td>
-                                    <td>测试1号</td>
-                                    <td>2014</td>
+                                    <td><a href="@item.Url" target="_blank">@item.Title</a></td>
+                                    <td>@item.OrderNum</td>
+                                    <td>0</td>
+                                    <td>@item.ReadNum</td>
+                                    <td>@item.Speed</td>
+                                    <td>@item.Praise</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>@item.UserWecat , @item.TransmitWecat ,@item.FriendWecat</td>
+                                    <td>@item.UpdateTime</td>
 
                                 </tr>
                             }
@@ -194,20 +195,7 @@
                     </tbody>
                 </table>
                 <div class="am-cf">
-                    <div class="am-fr">
-                        @if (pageItem.PageCount > 1)
-                        {
-                        <ul class="am-pagination tpl-pagination">
-                            <li class="am-disabled"><a href="#">«</a></li>
-                            <li class="am-active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">»</a></li>
-                        </ul>
-                        }
-                    </div>
+                    @Html.Partial("PageView")
                 </div>
 
 
@@ -230,6 +218,10 @@
                     $('#addTaskForm').ajaxSubmit(function (msg) {
 
                         $loading.modal('close');
+                        if (msg.status == 200)
+                        {
+                            redirectUrl("/home");
+                        }
                         AMUI.dialog.alert({
                             title: '提示',
                             content: msg.msg

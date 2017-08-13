@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var controllerName = ViewContext.RouteData.Values["controller"] == null ? "" : ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    if (ViewBag.BaseAction != null)
+    { controllerName = ViewBag.BaseAction; }
+
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -71,21 +77,21 @@
             <div class="tpl-left-nav-list">
                 <ul class="tpl-left-nav-menu">
                     <li class="tpl-left-nav-item">
-                        <a href="#" class="nav-link active">
+                        <a href="/home" class="nav-link @(controllerName == "home"?"active":"") ">
                             <i class="am-icon-tasks"></i>
                             <span>阅读量</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="/Recharge/index" class="nav-link @(controllerName == "recharge"?"active":"")">
                             <i class="am-icon-suitcase"></i>
                             <span>我的充值记录</span>
                         </a>
                     </li>
 
                     <li class="tpl-left-nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="/consumption/index" class="nav-link @(controllerName == "consumption"?"active":"")">
                             <i class="am-icon-bars"></i>
                             <span>我的消费记录</span>
                         </a>

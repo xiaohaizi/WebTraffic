@@ -1,0 +1,33 @@
+﻿@using WebTraffic.Models;
+@{ 
+    PageModel pageItem = (PageModel)ViewBag.PageData;
+    string paramString = "";
+}
+<div class="am-fr">
+    @if (pageItem.PageCount > 1)
+    {
+        <ul class="am-pagination tpl-pagination">
+            <li class="am-disabled"><a href="#">«</a></li>
+            @for (int n = 0; n < pageItem.PageCount; n++)
+            {
+                if (pageItem.PageIndex == n + 1)
+                {
+                            <li class="am-active"><a href="javascript:;">@(n + 1)</a></li>
+                }
+                else
+                {
+                    foreach (var pdic in pageItem.ParameterDic)
+                    {
+                        paramString = paramString + "&" + pdic.Key + "=" + pdic.Value;
+                    }
+                    paramString = paramString.TrimEnd('&');
+
+                            <li class=""><a href="@(pageItem.WebUrl)?page=@(n + 1)@(paramString)">@(n + 1)</a></li>
+                              
+                        }
+            }
+
+            <li><a href="#">»</a></li>
+        </ul>
+    }
+</div>
