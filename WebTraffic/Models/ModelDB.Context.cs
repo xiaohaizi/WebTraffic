@@ -29,7 +29,7 @@ namespace WebTraffic.Models
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Recharge> Recharge { get; set; }
         public virtual DbSet<TaskRecord> TaskRecord { get; set; }
-        public virtual DbSet<Tast> Tast { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Task> Task { get; set; }
     }
 }

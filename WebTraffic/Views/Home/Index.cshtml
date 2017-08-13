@@ -1,31 +1,248 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@using WebTraffic.Models;
+@{
+    ViewBag.Title = "阅读量";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PageModel<Task> pageItem = (PageModel<Task>)ViewBag.PageData;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div class="tpl-content-wrapper">
+    <div class="tpl-content-page-title">
+        阅读量
+    </div>
+    <ol class="am-breadcrumb">
+        <li><a href="#" class="am-icon-home">首页</a></li>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <li class="am-active">阅读量</li>
+    </ol>
+
+    <div class="tpl-portlet-components">
+        <div class="portlet-title">
+            <div class="caption font-green bold">
+                <span class="am-icon-code"></span> 刷阅读量
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="tpl-block ">
+                <div class="am-g tpl-amazeui-form">
+
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <form class="am-form am-form-horizontal" id="addTaskForm" action="/home/addTask" method="post" data-am-validator>
+                            <div class="am-form-group">
+                                <label for="user-name" class="am-u-sm-3 am-form-label">文章链接</label>
+                                <div class="am-u-sm-9">
+                                    <input id="ArticleUrl" name="ArticleUrl" placeholder="文章链接 " type="url" required>
+
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="user-email" class="am-u-sm-3 am-form-label">急速模式/VIP通道 </label>
+                                <div class="am-u-sm-9">
+                                    <label class="am-checkbox am-secondary" style="line-height:0.5;">
+                                        <input type="checkbox" id="Vip" name="Vip" value="1" data-am-ucheck>
+                                        急速模式/VIP通道每千加29.9元
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="user-email" class="am-u-sm-3 am-form-label">数量 </label>
+
+                                <div class="am-u-sm-4">
+                                    <input id="ReadNum" name="ReadNum" placeholder="数量" type="number" required>
+                                </div>
+                                <div class="am-u-sm-5" style="font-size:12px;">
+                                    数量：500~100000 急速模式下数量是:500~100000
+                                </div>
+
+                            </div>
+                            <div class="am-form-group">
+                                <label for="user-email" class="am-u-sm-3 am-form-label">速度 </label>
+                                <div class="am-u-sm-6">
+                                    <select name="Speed" id="Speed">
+                                        <option value="80">80/分钟</option>
+                                        <option value="100">100/分钟</option>
+                                        <option value="230" selected="selected">230/分钟</option>
+
+                                    </select>
+                                </div>
+                                <div class="am-u-sm-6">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="user-email" class="am-u-sm-3 am-form-label">赞 </label>
+
+                                <div class="am-u-sm-7">
+                                    <input id="Praise" name="Praise" placeholder="赞" readonly="readonly" type="text">
+                                </div>
+                                <div class="am-u-sm-2">
+                                    <select name="PraiseUnit" id="PraiseUnit">
+                                        <option value="">无</option>
+                                        <option value="1/1000">1/1000</option>
+                                        <option value="2/1000">2/1000</option>
+                                        <option value="3/1000">3/1000/分钟</option>
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="am-form-group">
+                                <label for="user-email" class="am-u-sm-3 am-form-label">来路 </label>
+
+
+                                <div class="am-u-sm-3">
+                                    <input id="UserWecat" name="UserWecat" placeholder="公众号会员" type="number">
+                                    <small>定来路价格每千加0.5元</small>
+                                </div>
+                                <div class="am-u-sm-3">
+                                    <input id="TransmitWecat" name="TransmitWecat" placeholder="好友转发" type="number">
+                                </div>
+                                <div class="am-u-sm-3">
+                                    <input id="FriendWecat" name="FriendWecat" placeholder="朋友圈" type="number">
+                                </div>
+
+
+                            </div>
+
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success">提交</button>
+                                    <small>同一订单请勿多平台下单.</small>
+                                </div>
+
+                            </div>
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <label style="font-weight:normal;font-size:12px">每千原价49.9元 时间1:00:00 到 17:00:00 每千单价优惠3.00元, 目前每千46.9元</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="am-u-sm-12">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span> 任务列表
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-6">
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
+                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                            </div>
+                        </div>
+                    </div>            
+                    
+                </div>
+                <table class="am-table am-table-striped am-table-hover table-main">
+                    <thead>
+                        <tr>
+                            <th class="table-check"><input class="tpl-table-fz-check" type="checkbox"></th>
+                            <th class="table-id">下单时间</th>
+                            <th class="table-title">标题</th>
+                            <th class="table-type">下单数量</th>
+                            <th class="table-author am-hide-sm-only">最大刷单数量</th>
+                            <th class="table-date am-hide-sm-only">阅读数量</th>
+                            <th class="table-date am-hide-sm-only">速度</th>
+                            <th class="table-date am-hide-sm-only">赞数量</th>
+                            <th class="table-date am-hide-sm-only">消费</th>
+                            <th class="table-date am-hide-sm-only">退回</th>
+                            <th class="table-date am-hide-sm-only">来路选择</th>
+                            <th class="table-date am-hide-sm-only">完成时间</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (pageItem != null)
+                        {
+                            foreach (var item in pageItem.listData)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.CreateTime</td>
+                                    <td><a href="#">Business</a></td>
+                                    <td></td>
+                                    <td>测试1号</td>
+                                    <td>2014</td>
+                                    <td><input type="checkbox"></td>
+                                    <td>1</td>
+                                    <td><a href="#">Business</a></td>
+                                    <td>default</td>
+                                    <td>测试1号</td>
+                                    <td>2014</td>
+
+                                </tr>
+                            }
+                        }
+                      
+
+                     
+
+                    </tbody>
+                </table>
+                <div class="am-cf">
+                    <div class="am-fr">
+                        @if (pageItem.PageCount > 1)
+                        {
+                        <ul class="am-pagination tpl-pagination">
+                            <li class="am-disabled"><a href="#">«</a></li>
+                            <li class="am-active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">»</a></li>
+                        </ul>
+                        }
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
     </div>
 </div>
+<script type="text/javascript">
+    $(function () {
+
+        $('#addTaskForm').validator({
+            submit: function () {
+                var formValidity = this.isFormValid();
+                console.log(formValidity);
+                if (formValidity) {
+                    var $loading = AMUI.dialog.loading({
+                        title: '正在处理...'
+                    });
+                    $('#addTaskForm').ajaxSubmit(function (msg) {
+
+                        $loading.modal('close');
+                        AMUI.dialog.alert({
+                            title: '提示',
+                            content: msg.msg
+                        });
+                    });
+
+                }
+                return false;
+            }
+        });
+    });
+    function test() {
+
+
+    }
+</script>

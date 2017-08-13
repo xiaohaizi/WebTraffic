@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TrafficModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TrafficModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ConsumptionRecord">
           <Key>
             <PropertyRef Name="ID" />
@@ -47,6 +47,30 @@
           <Property Name="OtherOrderNum" Type="varchar" MaxLength="50" />
           <Property Name="OrderNum" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Url" Type="varchar" MaxLength="500" />
+          <Property Name="Vip" Type="bit" />
+          <Property Name="StartNum" Type="int" />
+          <Property Name="EndNum" Type="int" />
+          <Property Name="Speed" Type="int" />
+          <Property Name="Praise" Type="int" />
+          <Property Name="PraiseUnit" Type="varchar" MaxLength="20" />
+          <Property Name="UserWecat" Type="int" />
+          <Property Name="TransmitWecat" Type="int" />
+          <Property Name="FriendWecat" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="TaskStatus" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="ReadNum" Type="int" />
+          <Property Name="OrderNum" Type="int" />
+        </EntityType>
         <EntityType Name="TaskRecord">
           <Key>
             <PropertyRef Name="ID" />
@@ -65,28 +89,6 @@
           <Property Name="Choice" Type="decimal" Precision="10" Scale="2" />
           <Property Name="CreateTime" Type="datetime" />
         </EntityType>
-        <EntityType Name="Tast">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="50" />
-          <Property Name="Url" Type="varchar" MaxLength="500" />
-          <Property Name="Vip" Type="bit" />
-          <Property Name="StartNum" Type="int" />
-          <Property Name="EndNum" Type="int" />
-          <Property Name="Speed" Type="int" />
-          <Property Name="Praise" Type="int" />
-          <Property Name="PraiseUnit" Type="varchar" MaxLength="20" />
-          <Property Name="UserWecat" Type="int" />
-          <Property Name="TransmitWecat" Type="int" />
-          <Property Name="FriendWecat" Type="int" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="CreatTine" Type="datetime" Nullable="false" />
-          <Property Name="TaskStatus" Type="int" />
-          <Property Name="UpdateTime" Type="datetime" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -103,12 +105,11 @@
           <EntitySet Name="ConsumptionRecord" EntityType="Self.ConsumptionRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recharge" EntityType="Self.Recharge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskRecord" EntityType="Self.TaskRecord" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tast" EntityType="Self.Tast" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TrafficModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -172,28 +173,6 @@
           <Property Name="Choice" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Tast">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Vip" Type="Boolean" />
-          <Property Name="StartNum" Type="Int32" />
-          <Property Name="EndNum" Type="Int32" />
-          <Property Name="Speed" Type="Int32" />
-          <Property Name="Praise" Type="Int32" />
-          <Property Name="PraiseUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UserWecat" Type="Int32" />
-          <Property Name="TransmitWecat" Type="Int32" />
-          <Property Name="FriendWecat" Type="Int32" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreatTine" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TaskStatus" Type="Int32" />
-          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -211,9 +190,33 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="Recharge" EntityType="Self.Recharge" />
           <EntitySet Name="TaskRecord" EntityType="Self.TaskRecord" />
-          <EntitySet Name="Tast" EntityType="Self.Tast" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="Task" EntityType="TrafficModel.Task" />
         </EntityContainer>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Vip" Type="Boolean" />
+          <Property Name="StartNum" Type="Int32" />
+          <Property Name="EndNum" Type="Int32" />
+          <Property Name="Speed" Type="Int32" />
+          <Property Name="Praise" Type="Int32" />
+          <Property Name="PraiseUnit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserWecat" Type="Int32" />
+          <Property Name="TransmitWecat" Type="Int32" />
+          <Property Name="FriendWecat" Type="Int32" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="TaskStatus" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReadNum" Type="Int32" />
+          <Property Name="OrderNum" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -284,29 +287,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tast">
-            <EntityTypeMapping TypeName="TrafficModel.Tast">
-              <MappingFragment StoreEntitySet="Tast">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="Vip" ColumnName="Vip" />
-                <ScalarProperty Name="StartNum" ColumnName="StartNum" />
-                <ScalarProperty Name="EndNum" ColumnName="EndNum" />
-                <ScalarProperty Name="Speed" ColumnName="Speed" />
-                <ScalarProperty Name="Praise" ColumnName="Praise" />
-                <ScalarProperty Name="PraiseUnit" ColumnName="PraiseUnit" />
-                <ScalarProperty Name="UserWecat" ColumnName="UserWecat" />
-                <ScalarProperty Name="TransmitWecat" ColumnName="TransmitWecat" />
-                <ScalarProperty Name="FriendWecat" ColumnName="FriendWecat" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="CreatTine" ColumnName="CreatTine" />
-                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TrafficModel.Users">
               <MappingFragment StoreEntitySet="Users">
@@ -317,6 +297,31 @@
                 <ScalarProperty Name="Vip" ColumnName="Vip" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="Wecat" ColumnName="Wecat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Task">
+            <EntityTypeMapping TypeName="TrafficModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
+                <ScalarProperty Name="ReadNum" ColumnName="ReadNum" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FriendWecat" ColumnName="FriendWecat" />
+                <ScalarProperty Name="TransmitWecat" ColumnName="TransmitWecat" />
+                <ScalarProperty Name="UserWecat" ColumnName="UserWecat" />
+                <ScalarProperty Name="PraiseUnit" ColumnName="PraiseUnit" />
+                <ScalarProperty Name="Praise" ColumnName="Praise" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="EndNum" ColumnName="EndNum" />
+                <ScalarProperty Name="StartNum" ColumnName="StartNum" />
+                <ScalarProperty Name="Vip" ColumnName="Vip" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
