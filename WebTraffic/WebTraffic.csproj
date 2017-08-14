@@ -175,8 +175,10 @@
     <Compile Include="Common\CommonBll.cs" />
     <Compile Include="Controllers\ConsumptionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotifyController.cs" />
     <Compile Include="Controllers\RechargeController.cs" />
+    <Compile Include="FilterAction\LoginFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -336,6 +338,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\traffic.pubxml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

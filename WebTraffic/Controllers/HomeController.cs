@@ -8,6 +8,7 @@ using WebTraffic.Common;
 using WebTraffic.Models;
 using WebTraffic.WebCollect;
 using Newtonsoft.Json;
+using WebTraffic.FilterAction;
 namespace WebTraffic.Controllers
 {
     public class HomeController : Controller
@@ -18,6 +19,7 @@ namespace WebTraffic.Controllers
         /// 首页
         /// </summary>
         /// <returns></returns>
+        [LoginFilter]
         public ActionResult Index()
         {
            
@@ -43,21 +45,21 @@ namespace WebTraffic.Controllers
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             Task task = new Task();
-           
+
             task.Title = "";
             task.Url = string.IsNullOrWhiteSpace(Request.Params["ArticleUrl"]) ? "" : Request.Params["ArticleUrl"];
-            if(task.Url.Length>2)
+            if (task.Url.Length > 2)
             {
                 web.Url = task.Url;
-              string webHtml=  web.getHtmlContentByUrl();
-                task.Title= Html_Regex.RegexByStr(Html_Regex.HtmlTitle, webHtml);
-                task.Title = Html_Regex.RegexReolaceHtml( task.Title, Html_Regex.HtmlAllContent);
+                string webHtml = web.getHtmlContentByUrl();
+                task.Title = Html_Regex.RegexByStr(Html_Regex.HtmlTitle, webHtml);
+                task.Title = Html_Regex.RegexReolaceHtml(task.Title, Html_Regex.HtmlAllContent);
             }
-           task.UserID = 0;
+            task.UserID = int.Parse(Session["trafficUserID"].ToString());
             task.UserWecat = string.IsNullOrWhiteSpace(Request.Params["UserWecat"]) ? 0 : int.Parse(Request.Params["UserWecat"].ToString());
             task.TransmitWecat = string.IsNullOrWhiteSpace(Request.Params["TransmitWecat"]) ? 0 : int.Parse(Request.Params["TransmitWecat"]);
             task.FriendWecat = string.IsNullOrWhiteSpace(Request.Params["FriendWecat"]) ? 0 : int.Parse(Request.Params["FriendWecat"]);
-            task.UserName = "";
+            task.UserName = Session["trafficUserName"].ToString();
             if (!string.IsNullOrWhiteSpace(Request.Params["Vip"]))
             {
                 task.Vip = int.Parse(Request.Params["Vip"]) > 0;
@@ -128,8 +130,8 @@ namespace WebTraffic.Controllers
             orderModel.OrderNum = out_trade_no;
             orderModel.Moneys= decimal.Parse(Request.Params["payMoney"]);
             orderModel.OrderStatus = 0;
-            orderModel.UserID = 0;
-            orderModel.UserName = "";
+            orderModel.UserID = int.Parse(Session["trafficUserID"].ToString());
+            orderModel.UserName = Session["trafficUserName"].ToString();
             orderModel.PayType = "alipay";
             modelDB.Orders.Add(orderModel);
 
