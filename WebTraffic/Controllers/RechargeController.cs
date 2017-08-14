@@ -17,8 +17,8 @@ namespace WebTraffic.Controllers
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            List<Recharge> itemList = new List<Recharge>();
-            var pageItem = taskItem.PageList(page, 10, "/recharge/index", out itemList);
+            List<Recharge> itemList = modelDB.Recharge.ToList();
+            var pageItem = taskItem.PageList(page, 10, "/recharge/index", ref itemList);
             ViewBag.PageData = pageItem;
             ViewBag.ListItem = itemList;
             // modelDB.Task

@@ -23,10 +23,15 @@ namespace WebTraffic.Controllers
            
             Task taskItem = new Task();
             int page = 1;
+            int status = 0;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
+            status = string.IsNullOrWhiteSpace(Request.Params["status"]) ? 0 : int.Parse(Request.Params["status"]);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            List<Task> taskList = new List<Task>();
-            var pageItem = taskItem.PageList(page, 10, "/home/index", out taskList);
+            List<Task> taskList = null;
+            if (status > 0)
+                taskList = modelDB.Task.Where(x => x.TaskStatus == status).ToList();
+            else taskList = modelDB.Task.ToList();
+            var pageItem = taskItem.PageList(page, 10, "/home/index", ref taskList);
             ViewBag.PageData = pageItem;
             ViewBag.ListItem = taskList;
             // modelDB.Task

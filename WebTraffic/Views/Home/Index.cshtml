@@ -139,10 +139,12 @@
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-                                <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                                <a href="/home/index" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 全部</a>
+                                <a href="/home/index?status=1" style="margin-left:1px"  class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 等待中</a>
+                                <a href="/home/index?status=2" style="margin-left:1px"  class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-archive"></span> 运行中</a>
+                                <a href="/home/index?status=3" style="margin-left:1px" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-trash-o"></span> 完成</a>
+                                <a href="/home/index?status=4" style="margin-left:1px" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-archive"></span> 用户中止</a>
+                                <a href="/home/index?status=5" style="margin-left:1px" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-trash-o"></span> 管理员中止</a>
                             </div>
                         </div>
                     </div>            
