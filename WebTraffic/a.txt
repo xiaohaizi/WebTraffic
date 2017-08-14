@@ -5,5 +5,8 @@
                     "pay_desc"=>"即时到账接口",
                     "img"=>"alipayjs.gif",
   					'rate_img'=>'rate_img',
-                    "initparam"=>"account:wzs@msuo.org;account_name:王宗水;seller_id:2088221897190993;safekey:6iip3za8v38tzwf7s3vw4kiulfkr037e"
+                    "initparam"=>"account:wzs@msuo.org;
+					account_name:王宗水;
+					seller_id:2088221897190993;
+					safekey:6iip3za8v38tzwf7s3vw4kiulfkr037e"
                );

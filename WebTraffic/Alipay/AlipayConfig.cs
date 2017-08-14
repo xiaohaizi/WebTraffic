@@ -23,19 +23,19 @@ namespace WebTraffic.Alipay
         //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
         // 合作身份者ID，签约账号，以2088开头由16位纯数字组成的字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
-        public static string partner = "";
+        public static string partner = "2088621901875027";
 
         // 收款支付宝账号，以2088开头由16位纯数字组成的字符串，一般情况下收款账号就是签约账号
         public static string seller_id = partner;
 		
         // MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
-        public static string key = "";
+        public static string key = "urv4sfl9k4c0zma00t8u9ffm2i5jw9zh";
 
         // 服务器异步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数,必须外网可以正常访问
-        public static string notify_url = "http://商户网关地址/create_direct_pay_by_user-CSHARP-UTF-8/notify_url.aspx";
+        public static string notify_url = "http://msuo.org/";
 
         // 页面跳转同步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-        public static string return_url = "http://商户网关地址/create_direct_pay_by_user-CSHARP-UTF-8/return_url.aspx";
+        public static string return_url = "http://msuo.org/";
 
         // 签名方式
         public static string sign_type = "MD5";
@@ -44,7 +44,7 @@ namespace WebTraffic.Alipay
         public static string log_path = HttpRuntime.AppDomainAppPath.ToString() + "log\\";
 
         // 字符编码格式 目前支持 gbk 或 utf-8
-        public static string input_charset = "gbk";
+        public static string input_charset = "utf-8";
 
         // 支付类型 ，无需修改
         public static string payment_type = "1";
