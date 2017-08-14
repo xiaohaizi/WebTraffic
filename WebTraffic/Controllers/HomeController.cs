@@ -12,6 +12,10 @@ namespace WebTraffic.Controllers
     {
         TrafficEntities modelDB = new TrafficEntities();
         Web_Spider web = new Web_Spider();
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             Task taskItem = new Task();
@@ -25,7 +29,10 @@ namespace WebTraffic.Controllers
             // modelDB.Task
             return View();
         }
-
+        /// <summary>
+        /// 添加任务
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult AddTask()
         {
@@ -79,6 +86,9 @@ namespace WebTraffic.Controllers
             return Json(dic);
         }
 
+        public ActionResult test() {
+            return Content("<h1>Hello World!</h1>");
+        }
 
     }
 }
