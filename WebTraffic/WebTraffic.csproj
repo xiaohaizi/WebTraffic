@@ -214,6 +214,7 @@
     <Compile Include="WebCollect\Web_Spider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="a.txt" />
     <Content Include="Content\css\admin.css" />
     <Content Include="Content\css\amazeui.min.css" />
     <Content Include="Content\css\app.css" />
