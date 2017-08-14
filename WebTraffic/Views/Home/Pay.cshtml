@@ -78,7 +78,7 @@
 
                 </div>
                 <div class="row">
-                    <form class="am-form am-form-horizontal" id="addTaskForm" action="/home/payaction" method="post" data-am-validator>
+                    <form class="am-form am-form-horizontal" id="PayTaskForm" action="/home/payaction" method="post" target="_blank" data-am-validator>
                         <div class="am-form-group">
                             <label for="user-name" class="am-u-sm-3 am-form-label"></label>
                             <div class="am-u-sm-7">
@@ -107,7 +107,7 @@
                         <div class="am-form-group">
                             <label for="user-name" class="am-u-sm-3 am-form-label">备注</label>
                             <div class="am-u-sm-6">
-                                <textarea></textarea>
+                                <textarea name="Remarks" id="Remarks"></textarea>
                             </div>
                             <div class="am-u-sm-3">
                             </div>
@@ -115,8 +115,7 @@
 
                         <div class="am-form-group">
                             <div class="am-u-sm-9 am-u-sm-push-3">
-                                <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success">确认充值</button>
-                              
+                                <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success" onclick="PaySubmit()">确认充值</button>
                             </div>
 
                         </div>
@@ -125,6 +124,24 @@
             </div>
         </div>
     </div>
+    <script src="~/Content/js/amazeui.min.js"></script>
+    <script src="~/Content/js/echarts.min.js"></script>
+    <script src="~/Content/js/iscroll.js"></script>
+    <script src="~/Content/js/app.js"></script>
+    <script src="~/Content/Scripts/amazeui.dialog.min.js"></script>
+    @Scripts.Render("~/bundles/scripts")
+
+    <script type="text/javascript">
+        function PaySubmit() {
+            AMUI.dialog.confirm({
+                title: '支付成功', content: '用户充值',
+                onConfirm: function () { alert(1); },
+                onCancel: function () { alert(0); }
+            });
+
+            $("#PayTaskForm").submit();
+        }
+    </script>
 </body>
 </html>
 

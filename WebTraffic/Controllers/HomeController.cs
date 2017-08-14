@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebTraffic.Alipay;
+using WebTraffic.Common;
 using WebTraffic.Models;
 using WebTraffic.WebCollect;
 
@@ -19,6 +20,7 @@ namespace WebTraffic.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
+           
             Task taskItem = new Task();
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
@@ -112,11 +114,25 @@ namespace WebTraffic.Controllers
             //商品描述，可空
             string body ="测试";
 
-
-
+            //Recharge rechargeModel = new Recharge();
+            //rechargeModel.Moneys = decimal.Parse(Request.Params["payMoney"]);
+            //rechargeModel.OrderNum = out_trade_no;
+            //rechargeModel.CreateTime = DateTime.Now;
+            //rechargeModel.UserID = 1;
+            //rechargeModel.UserName = "";
+            //rechargeModel.FromType = "alipay";
+            //rechargeModel.Remarks = Request.Params["Remarks"];
+            Orders orderModel = new Orders();
+            orderModel.OrderNum = out_trade_no;
+            orderModel.Moneys= decimal.Parse(Request.Params["payMoney"]);
+            orderModel.OrderStatus = 0;
+            orderModel.UserID = 0;
+            orderModel.UserName = "";
+            orderModel.PayType = "alipay";
+            modelDB.Orders.Add(orderModel);
 
             ////////////////////////////////////////////////////////////////////////////////////////////////
-
+            modelDB.SaveChanges();
             //把请求参数打包成数组
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
             sParaTemp.Add("service", Config.service);
@@ -136,7 +152,7 @@ namespace WebTraffic.Controllers
             //如sParaTemp.Add("参数名","参数值");
 
             //建立请求
-            string sHtmlText = Submit.BuildRequest(sParaTemp, "get", "确认");
+            string sHtmlText = Submit.BuildRequest(sParaTemp, "post", "确认");
            // Response.Write(sHtmlText);
             return Content(sHtmlText);
         }
