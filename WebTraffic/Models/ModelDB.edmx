@@ -32,6 +32,8 @@
           <Property Name="CreteTime" Type="datetime" />
           <Property Name="OrderStatus" Type="int" />
           <Property Name="PayType" Type="varchar" MaxLength="10" />
+          <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="Remarks" Type="varchar" MaxLength="800" />
         </EntityType>
         <EntityType Name="Recharge">
           <Key>
@@ -46,6 +48,7 @@
           <Property Name="Remarks" Type="varchar" MaxLength="800" />
           <Property Name="OtherOrderNum" Type="varchar" MaxLength="50" />
           <Property Name="OrderNum" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -140,6 +143,8 @@
           <Property Name="CreteTime" Type="DateTime" Precision="3" />
           <Property Name="OrderStatus" Type="Int32" />
           <Property Name="PayType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="Remarks" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Recharge">
           <Key>
@@ -154,6 +159,7 @@
           <Property Name="Remarks" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
           <Property Name="OtherOrderNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OrderNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="TaskRecord">
           <Key>
@@ -242,6 +248,8 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="TrafficModel.Orders">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -256,6 +264,7 @@
           <EntitySetMapping Name="Recharge">
             <EntityTypeMapping TypeName="TrafficModel.Recharge">
               <MappingFragment StoreEntitySet="Recharge">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />

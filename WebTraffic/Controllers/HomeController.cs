@@ -7,7 +7,7 @@ using WebTraffic.Alipay;
 using WebTraffic.Common;
 using WebTraffic.Models;
 using WebTraffic.WebCollect;
-
+using Newtonsoft.Json;
 namespace WebTraffic.Controllers
 {
     public class HomeController : Controller
@@ -25,10 +25,12 @@ namespace WebTraffic.Controllers
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            List<Task> taskList = new List<Task>();
-            var pageItem = taskItem.PageList(page, 10, "/home/index", out taskList);
+            List<Task> taskList = modelDB.Task.ToList();
+            var pageItem = taskItem.PageList(page, 10, "/home/index", ref taskList);
             ViewBag.PageData = pageItem;
             ViewBag.ListItem = taskList;
+         
+          
             // modelDB.Task
             return View();
         }
@@ -109,7 +111,7 @@ namespace WebTraffic.Controllers
             string subject = "测试";
 
             //付款金额，必填
-            string total_fee = "1";
+            string total_fee = "0.1";
 
             //商品描述，可空
             string body ="测试";

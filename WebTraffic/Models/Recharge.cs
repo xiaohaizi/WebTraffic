@@ -23,5 +23,6 @@ namespace WebTraffic.Models
         public string Remarks { get; set; }
         public string OtherOrderNum { get; set; }
         public string OrderNum { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
     }
 }

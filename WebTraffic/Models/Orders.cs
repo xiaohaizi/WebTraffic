@@ -22,5 +22,7 @@ namespace WebTraffic.Models
         public Nullable<System.DateTime> CreteTime { get; set; }
         public Nullable<int> OrderStatus { get; set; }
         public string PayType { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
+        public string Remarks { get; set; }
     }
 }

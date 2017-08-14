@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System;
 using System.Collections.Generic;
-
+using System.Configuration;
 namespace WebTraffic.Alipay
 {
     /// <summary>
@@ -23,19 +23,19 @@ namespace WebTraffic.Alipay
         //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
         // 合作身份者ID，签约账号，以2088开头由16位纯数字组成的字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
-        public static string partner = "2088621901875027";
+        public static string partner = ConfigurationManager.AppSettings["alipayAppID"];
 
         // 收款支付宝账号，以2088开头由16位纯数字组成的字符串，一般情况下收款账号就是签约账号
         public static string seller_id = partner;
 		
         // MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.htm
-        public static string key = "urv4sfl9k4c0zma00t8u9ffm2i5jw9zh";
+        public static string key = ConfigurationManager.AppSettings["alipayKey"];
 
         // 服务器异步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数,必须外网可以正常访问
-        public static string notify_url = "http://msuo.org/";
+        public static string notify_url = ConfigurationManager.AppSettings["alipayUrlNotify"];
 
         // 页面跳转同步通知页面路径，需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-        public static string return_url = "http://msuo.org/";
+        public static string return_url = ConfigurationManager.AppSettings["alipayUrlReturn"];
 
         // 签名方式
         public static string sign_type = "MD5";

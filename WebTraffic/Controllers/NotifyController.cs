@@ -6,18 +6,23 @@ using System.Web;
 using System.Web.Mvc;
 using WebTraffic.Alipay;
 using WebTraffic.Common;
+using Newtonsoft.Json;
+using WebTraffic.Models;
+using System.Data.Entity;
 
 namespace WebTraffic.Controllers
 {
     public class NotifyController : Controller
     {
         // GET: Notify
+        
         public string  AlipayNotify()
         {
             string result = "fail";
+           
             CommonBll.WriteTextFile("******" + DateTime.Now.ToString()+"开始*******************", "log\\log.txt");
             SortedDictionary<string, string> sPara = GetRequestPost();
-            CommonBll.WriteTextFile(Json(sPara).ToString(), "log\\log.txt");           
+            CommonBll.WriteTextFile(JsonConvert.SerializeObject(sPara), "log\\log.txt");           
             if (sPara.Count > 0)//判断是否有带返回参数
             {
                 Notify aliNotify = new Notify();
@@ -44,18 +49,32 @@ namespace WebTraffic.Controllers
                     string trade_status = Request.Form["trade_status"];
 
 
-                    if (Request.Form["trade_status"] == "TRADE_FINISHED")
+                 if (Request.Form["trade_status"] == "TRADE_SUCCESS")
                     {
-                        //判断该笔订单是否在商户网站中已经做过处理
-                        //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-                        //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
-                        //如果有做过处理，不执行商户的业务程序
+                        using (TrafficEntities ModelDB = new TrafficEntities())
+                        {
+                           var orderItem= ModelDB.Orders.Where(x => x.OrderNum == out_trade_no && x.OrderStatus == 0).FirstOrDefault();
+                            if (orderItem != null)
+                            {
+                                orderItem.OrderStatus = 1;
+                                orderItem.UpdateTime = DateTime.Now;
+                                ModelDB.Entry<Orders>(orderItem).State = EntityState.Modified;
+                                Recharge item = new Recharge();
+                                item.CreateTime = DateTime.Now;
+                                item.FromType = "alipay";
+                                item.Moneys = orderItem.Moneys;
+                                item.OrderNum = orderItem.OrderNum;
+                                item.UserID = orderItem.UserID;
+                                item.UserName = orderItem.UserName;
+                                item.OtherOrderNum = trade_no;
+                                item.UpdateTime = DateTime.Now;
+                                item.Remarks = orderItem.Remarks;
+                                ModelDB.Entry<Recharge>(item).State = EntityState.Added;
+                                ModelDB.SaveChanges();
 
-                        //注意：
-                        //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-                    }
-                    else if (Request.Form["trade_status"] == "TRADE_SUCCESS")
-                    {
+                            }
+                            result = "success";
+                        }
                         //判断该笔订单是否在商户网站中已经做过处理
                         //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                         //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -70,7 +89,7 @@ namespace WebTraffic.Controllers
 
                     //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 
-                    result = "success";  //请不要修改或删除
+                    //请不要修改或删除
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 }

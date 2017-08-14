@@ -14,21 +14,20 @@ namespace WebTraffic.Models
         /// <param name="pageSize"></param>
         /// <param name="_dic"></param>
         /// <returns></returns>
-        public PageModel PageList(int pageIndex, int pageSize, string _url, out List<Recharge> _list, Dictionary<string, string> _dic = null)
+        public PageModel PageList(int pageIndex, int pageSize, string _url, ref List<Recharge> _list, Dictionary<string, string> _dic = null)
         {
             PageModel pageItem = new PageModel();
-            using (TrafficEntities modelDB = new TrafficEntities())
-            {
-                int allCount = modelDB.Task.Count();
+            
+                int allCount = _list.Count();
                 pageItem.PageIndex = pageIndex;
                 pageItem.PageSize = pageSize;
                 pageItem.PageCount = (int)Math.Ceiling((decimal)allCount / pageSize);
-                _list = modelDB.Recharge.OrderByDescending(x => x.ID).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                _list = _list.OrderByDescending(x => x.ID).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 if (_dic != null)
                     pageItem.ParameterDic = _dic;
 
                 pageItem.WebUrl = _url;
-            }
+           
             //  modelDB.
             return pageItem;
         }
