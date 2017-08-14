@@ -73,6 +73,7 @@
           <Property Name="UpdateTime" Type="datetime" />
           <Property Name="ReadNum" Type="int" />
           <Property Name="OrderNum" Type="int" />
+          <Property Name="StartReadNum" Type="int" />
         </EntityType>
         <EntityType Name="TaskRecord">
           <Key>
@@ -222,6 +223,7 @@
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ReadNum" Type="Int32" />
           <Property Name="OrderNum" Type="Int32" />
+          <Property Name="StartReadNum" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -312,6 +314,7 @@
           <EntitySetMapping Name="Task">
             <EntityTypeMapping TypeName="TrafficModel.Task">
               <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="StartReadNum" ColumnName="StartReadNum" />
                 <ScalarProperty Name="OrderNum" ColumnName="OrderNum" />
                 <ScalarProperty Name="ReadNum" ColumnName="ReadNum" />
                 <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
