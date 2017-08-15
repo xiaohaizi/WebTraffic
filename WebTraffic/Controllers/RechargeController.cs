@@ -7,9 +7,9 @@ using WebTraffic.Models;
 
 namespace WebTraffic.Controllers
 {
-    public class RechargeController : Controller
+    public class RechargeController : BaseController
     {
-        TrafficEntities modelDB = new TrafficEntities();
+        
         // GET: Recharge
         public ActionResult Index()
         {
@@ -17,7 +17,7 @@ namespace WebTraffic.Controllers
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            List<Recharge> itemList = modelDB.Recharge.ToList();
+            List<Recharge> itemList = BaseModelDB.Recharge.ToList();
             var pageItem = taskItem.PageList(page, 10, "/recharge/index", ref itemList);
             ViewBag.PageData = pageItem;
             ViewBag.ListItem = itemList;

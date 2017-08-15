@@ -115,7 +115,7 @@
 
                         <div class="am-form-group">
                             <div class="am-u-sm-9 am-u-sm-push-3">
-                                <button type="button" class="am-btn am-btn-primary tpl-btn-bg-color-success" onclick="PaySubmit()">确认充值</button>
+                                <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success">确认充值</button>
                             </div>
 
                         </div>
@@ -132,15 +132,26 @@
     @Scripts.Render("~/bundles/scripts")
 
     <script type="text/javascript">
-        function PaySubmit() {
-            AMUI.dialog.confirm({
-                title: '支付成功', content: '用户充值',
-                onConfirm: function () { alert(1); },
-                onCancel: function () { alert(0); }
-            });
+        $(function () {
 
-            $("#PayTaskForm").submit();
-        }
+            $('#PayTaskForm').validator({
+                submit: function () {
+                    var formValidity = this.isFormValid();
+                 
+                    if (formValidity) {
+                        AMUI.dialog.confirm({
+                            title: '支付成功', content: '用户充值',
+                            onConfirm: function () { alert(1); },
+                            onCancel: function () { alert(0); }
+                        });
+                        $("#PayTaskForm").submit();
+
+                    }
+                    return false;
+                }
+            });
+        });
+       
     </script>
 </body>
 </html>

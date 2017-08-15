@@ -11,9 +11,9 @@ using Newtonsoft.Json;
 using WebTraffic.FilterAction;
 namespace WebTraffic.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        TrafficEntities modelDB = new TrafficEntities();
+       
         Web_Spider web = new Web_Spider();
         /// <summary>
         /// 首页
@@ -27,7 +27,7 @@ namespace WebTraffic.Controllers
             int page = 1;
             page = string.IsNullOrWhiteSpace(Request.Params["page"]) ? 1 : int.Parse(Request.Params["page"]);
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            List<Task> taskList = modelDB.Task.ToList();
+            List<Task> taskList = BaseModelDB.Task.ToList();
             var pageItem = taskItem.PageList(page, 10, "/home/index", ref taskList);
             ViewBag.PageData = pageItem;
             ViewBag.ListItem = taskList;
@@ -55,11 +55,11 @@ namespace WebTraffic.Controllers
                 task.Title = Html_Regex.RegexByStr(Html_Regex.HtmlTitle, webHtml);
                 task.Title = Html_Regex.RegexReolaceHtml(task.Title, Html_Regex.HtmlAllContent);
             }
-            task.UserID = int.Parse(Session["trafficUserID"].ToString());
+            task.UserID = BaseUserID;
             task.UserWecat = string.IsNullOrWhiteSpace(Request.Params["UserWecat"]) ? 0 : int.Parse(Request.Params["UserWecat"].ToString());
             task.TransmitWecat = string.IsNullOrWhiteSpace(Request.Params["TransmitWecat"]) ? 0 : int.Parse(Request.Params["TransmitWecat"]);
             task.FriendWecat = string.IsNullOrWhiteSpace(Request.Params["FriendWecat"]) ? 0 : int.Parse(Request.Params["FriendWecat"]);
-            task.UserName = Session["trafficUserName"].ToString();
+            task.UserName = BaseUserName;
             if (!string.IsNullOrWhiteSpace(Request.Params["Vip"]))
             {
                 task.Vip = int.Parse(Request.Params["Vip"]) > 0;
@@ -71,11 +71,11 @@ namespace WebTraffic.Controllers
             task.TaskStatus = 0;
             task.ReadNum = string.IsNullOrWhiteSpace(Request.Params["ReadNum"]) ? 0 : int.Parse(Request.Params["ReadNum"]);
             task.Speed = string.IsNullOrWhiteSpace(Request.Params["Speed"]) ? 0 : int.Parse(Request.Params["Speed"]);
-            modelDB.Task.Add(task);
+            BaseModelDB.Task.Add(task);
             int n = 0;
             try
             {
-                n = modelDB.SaveChanges();
+                n = BaseModelDB.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -133,10 +133,10 @@ namespace WebTraffic.Controllers
             orderModel.UserID = int.Parse(Session["trafficUserID"].ToString());
             orderModel.UserName = Session["trafficUserName"].ToString();
             orderModel.PayType = "alipay";
-            modelDB.Orders.Add(orderModel);
+            BaseModelDB.Orders.Add(orderModel);
 
             ////////////////////////////////////////////////////////////////////////////////////////////////
-            modelDB.SaveChanges();
+            BaseModelDB.SaveChanges();
             //把请求参数打包成数组
             SortedDictionary<string, string> sParaTemp = new SortedDictionary<string, string>();
             sParaTemp.Add("service", Config.service);
