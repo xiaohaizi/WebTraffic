@@ -22,11 +22,25 @@ namespace WebTraffic.Common
                 using (File.Create(HttpRuntime.AppDomainAppPath.ToString() + _fileName))
                 { }
             }
-           
+
             StreamWriter sw = new StreamWriter(HttpRuntime.AppDomainAppPath.ToString() + _fileName, true);
             sw.WriteLine(_content);
             sw.Close();
 
+        }
+
+
+        public static string MD5(string str)
+        {
+            byte[] b = System.Text.Encoding.Default.GetBytes(str);
+
+            b = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(b);
+            string ret = "";
+            for (int i = 0; i < b.Length; i++)
+            {
+                ret += b[i].ToString("x").PadLeft(2, '0');
+            }
+            return ret;
         }
     }
 }

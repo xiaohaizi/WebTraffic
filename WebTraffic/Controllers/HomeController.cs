@@ -161,5 +161,57 @@ namespace WebTraffic.Controllers
             return Content(sHtmlText);
         }
 
+        public ActionResult UpdatePwd()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult UpdatePwdAction()
+        {
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            string oldpwd = string.IsNullOrWhiteSpace(Request.Params["oldpwd"]) ? "" : Request.Params["oldpwd"].Trim();
+            string newpwd = string.IsNullOrWhiteSpace(Request.Params["newpwd"]) ? "" : Request.Params["newpwd"].Trim();
+            string newpwd1 = string.IsNullOrWhiteSpace(Request.Params["newpwd1"]) ? "" : Request.Params["newpwd1"].Trim();
+            if (oldpwd.Length > 0 && newpwd.Length > 0 && newpwd1.Length > 0)
+            {
+                if (newpwd != newpwd1)
+                {
+                    dic.Add("status", "300");
+                    dic.Add("msg", "新密码不一致!");
+                }
+                else {
+                  var userItem=  BaseModelDB.Users.Where(x => x.ID == BaseUserID && x.UserPwd == CommonBll.MD5(oldpwd)).FirstOrDefault();
+                    if (userItem == null)
+                    {
+                        dic.Add("status", "300");
+                        dic.Add("msg", "密码错误!");
+                    }
+                    else
+                    {
+                        userItem.UserPwd = CommonBll.MD5(newpwd);
+                        BaseModelDB.Entry<Users>(userItem).State = System.Data.Entity.EntityState.Modified;
+                        int n=BaseModelDB.SaveChanges();
+                        if (n>0)
+                        {
+                            dic.Add("status", "200");
+                            dic.Add("msg", "修改成功!");
+                        }
+                        else
+                        {
+                            dic.Add("status", "300");
+                            dic.Add("msg", "修改失败!");
+                        }
+
+                    }
+                }
+            }
+            else {
+                dic.Add("status", "300");
+                dic.Add("msg", "旧密码或新密码不能为空!");
+            }
+            return Json(dic);
+        }
     }
 }

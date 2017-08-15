@@ -342,6 +342,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\traffic.pubxml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\UpdatePwd.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
