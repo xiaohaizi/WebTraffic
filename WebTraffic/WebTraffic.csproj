@@ -178,6 +178,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotifyController.cs" />
     <Compile Include="Controllers\RechargeController.cs" />
+    <Compile Include="Controllers\ReturnController.cs" />
     <Compile Include="FilterAction\LoginFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
