@@ -182,7 +182,9 @@ namespace WebTraffic.Controllers
                     dic.Add("msg", "新密码不一致!");
                 }
                 else {
-                  var userItem=  BaseModelDB.Users.Where(x => x.ID == BaseUserID && x.UserPwd == CommonBll.MD5(oldpwd)).FirstOrDefault();
+                    string oldmd5 = CommonBll.MD5(oldpwd);
+                   
+                    var userItem=  BaseModelDB.Users.Where(x => x.ID == BaseUserID && x.UserPwd == oldmd5).FirstOrDefault();
                     if (userItem == null)
                     {
                         dic.Add("status", "300");
