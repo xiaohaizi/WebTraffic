@@ -56,6 +56,12 @@ namespace WebTraffic.Controllers
                            var orderItem= ModelDB.Orders.Where(x => x.OrderNum == out_trade_no && x.OrderStatus == 0).FirstOrDefault();
                             if (orderItem != null)
                             {
+                               var userItem= ModelDB.Users.Where(x => x.ID == orderItem.UserID).FirstOrDefault();
+                                if (userItem != null)
+                                {
+                                    userItem.Balance = userItem.Balance + orderItem.Moneys;
+                                    ModelDB.Entry<Users>(userItem).State = EntityState.Modified;
+                                }
                                 orderItem.OrderStatus = 1;
                                 orderItem.UpdateTime = DateTime.Now;
                                 ModelDB.Entry<Orders>(orderItem).State = EntityState.Modified;
