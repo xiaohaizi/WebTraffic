@@ -17,8 +17,7 @@ namespace WebTraffic.Models
         public PageModel PageList(int pageIndex, int pageSize, string _url, ref List<Recharge> _list, Dictionary<string, string> _dic = null)
         {
             PageModel pageItem = new PageModel();
-            using (TrafficEntities modelDB = new TrafficEntities())
-            {
+            
                 int allCount = _list.Count();
                 pageItem.PageIndex = pageIndex;
                 pageItem.PageSize = pageSize;
@@ -28,7 +27,7 @@ namespace WebTraffic.Models
                     pageItem.ParameterDic = _dic;
 
                 pageItem.WebUrl = _url;
-            }
+           
             //  modelDB.
             return pageItem;
         }

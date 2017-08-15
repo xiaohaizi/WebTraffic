@@ -12,8 +12,7 @@ namespace WebTraffic.Models
         {
             PageModel pageItem = new PageModel();
           
-            using (TrafficEntities modelDB = new TrafficEntities())
-            {
+          
                 int allCount = _taskList.Count();
                 pageItem.PageIndex = pageIndex;
                 pageItem.PageSize = pageSize;
@@ -23,7 +22,7 @@ namespace WebTraffic.Models
                     pageItem.ParameterDic = _dic;
 
                 pageItem.WebUrl = _url;
-            }
+           
             //  modelDB.
             return pageItem;
         }

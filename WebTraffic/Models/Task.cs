@@ -33,5 +33,6 @@ namespace WebTraffic.Models
         public System.DateTime CreateTime { get; set; }
         public Nullable<int> ReadNum { get; set; }
         public Nullable<int> OrderNum { get; set; }
+        public Nullable<int> StartReadNum { get; set; }
     }
 }
